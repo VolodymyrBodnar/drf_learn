@@ -1,8 +1,8 @@
 from django.db import models
-from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.models import AbstractUser
 
 
-class User(AbstractBaseUser):
+class User(AbstractUser):
     """
     User model
     """
@@ -15,8 +15,10 @@ class User(AbstractBaseUser):
     email = models.EmailField(('email address'), unique=True)
     first_name = models.CharField(('first name'), max_length=30, blank=True)
     last_name = models.CharField(('last name'), max_length=30, blank=True)
+    is_active = models.BooleanField(('active'), default=True)
 
-    role = models.IntegerField(choices=ROLE_CHOICES)
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    def __repr__(self):
+        """
+        representation for user model
+        """
+        return f'{self.first_name} {self.last_name}.'
