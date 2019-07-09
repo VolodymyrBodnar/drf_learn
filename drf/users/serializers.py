@@ -20,4 +20,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.User
+
+        # make password field shown only on creation of user
+        extra_kwargs = {'password': {'write_only': True}}
         fields = ('email', 'password', 'first_name', 'last_name', 'birth_date')
